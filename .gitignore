@@ -1,0 +1,5 @@
+node_modules/
+memory/
+*.pid
+*.log
+sm-sync-state.json
