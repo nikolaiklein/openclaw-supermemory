@@ -7,7 +7,7 @@ const Supermemory = _sm.default || _sm;
 const fs = require('fs');
 
 const AUTH_PATH = '/data/.openclaw/agents/main/agent/auth-profiles.json';
-const CONTAINER_TAG = 'nn02-andrew';
+const CONTAINER_TAG = 'your-name'; // ← замени на своё имя
 
 let apiKey;
 try {

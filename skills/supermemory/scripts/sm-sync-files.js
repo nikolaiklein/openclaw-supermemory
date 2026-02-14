@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const AUTH_PATH = '/data/.openclaw/agents/main/agent/auth-profiles.json';
-const CONTAINER_TAG = 'nn02-andrew';
+const CONTAINER_TAG = 'your-name'; // ← замени на своё имя
 const WORKSPACE = '/data/.openclaw/workspace';
 const MEMORY_FILE = path.join(WORKSPACE, 'MEMORY.md');
 const MEMORY_DIR = path.join(WORKSPACE, 'memory');

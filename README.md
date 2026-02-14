@@ -1,11 +1,15 @@
 # OpenClaw × Supermemory — Long-Term Memory for AI Agents
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-Aiwariur%2Fopenclaw--supermemory-blue)](https://github.com/Aiwariur/openclaw-supermemory)
+
 Автоматическая синхронизация всех разговоров OpenClaw в [Supermemory](https://supermemory.ai) с мгновенным поиском по истории.
 
-## Что это делает
+## Why Supermemory?
 
-- **Полная память** — каждое сообщение автоматически попадает в Supermemory
-- **Мгновенный поиск** — hybrid search по всей истории за <300ms
+- **Sub-300ms поиск** — hybrid search (neural + keyword) по всей истории
+- **Neural RAG** — Supermemory строит граф знаний, связывает факты, забывает устаревшее
+- **Полная память** — каждое сообщение + файлы MEMORY.md автоматически попадают в Supermemory
 - **Ноль токенов AI** — daemon работает как отдельный Node.js процесс
 - **Дедупликация** — `customId` гарантирует отсутствие дублей при перезапуске
 - **Автовоскрешение** — daemon поднимается через HEARTBEAT watchdog
@@ -42,17 +46,18 @@
 }
 ```
 
-### 3. Установи зависимости
+### 3. Клонируй репозиторий
+
+```bash
+cd /data/.openclaw/workspace
+git clone https://github.com/Aiwariur/openclaw-supermemory.git skills/supermemory
+```
+
+### 4. Установи зависимости
 
 ```bash
 cd /data/.openclaw/workspace
 npm install supermemory@4.11.1
-```
-
-### 4. Скопируй скилл
-
-```bash
-cp -r skills/supermemory /data/.openclaw/workspace/skills/supermemory
 ```
 
 ### 5. Запусти
@@ -70,6 +75,14 @@ node skills/supermemory/scripts/sm-sync-files.js
 node skills/supermemory/scripts/sm-recall.js recall "test"
 ```
 
+## Daemon v3.0
+
+Текущая версия daemon (v3.0) синхронизирует:
+- **Конверсации** — все JSONL сессии OpenClaw (автоматически, каждые 2 мин)
+- **Файлы памяти** — MEMORY.md и daily notes через `sm-sync-files.js`
+
+> v2.0 синхронизировал только конверсации. v3.0 добавил автоматическую синхронизацию MEMORY.md.
+
 ## Структура проекта
 
 ```
@@ -77,7 +90,7 @@ skills/supermemory/
 ├── SKILL.md                 — инструкция для AI агента (когда/как вызывать recall)
 └── scripts/
     ├── sm-recall.js         — поиск по памяти
-    ├── sm-sync-files.js     — ручная синхронизация MEMORY.md + daily notes
+    ├── sm-sync-files.js     — синхронизация MEMORY.md + daily notes
     ├── sm-daemon.js         — фоновый daemon автосинхронизации
     └── sm-control.sh        — управление daemon: start/stop/restart/status/logs
 ```
@@ -109,9 +122,9 @@ node skills/supermemory/scripts/sm-recall.js profile
 | `BATCH_SIZE` | 20 | Пар сообщений за батч |
 | `CHECK_INTERVAL_MS` | 120000 | Проверка каждые 2 мин |
 | `MIN_NEW_MESSAGES` | 5 | Минимум новых сообщений для синхронизации |
-| `CONTAINER_TAG` | `nn02-andrew` | Тег контейнера в Supermemory |
+| `CONTAINER_TAG` | `your-name` | Тег контейнера в Supermemory |
 
-Измени `CONTAINER_TAG` в скриптах на свой.
+> ⚠️ Замени `CONTAINER_TAG` во всех скриптах (`sm-daemon.js`, `sm-recall.js`, `sm-sync-files.js`) на своё имя или идентификатор.
 
 ## Автозапуск при рестарте контейнера
 

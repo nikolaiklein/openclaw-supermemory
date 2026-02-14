@@ -12,7 +12,7 @@ const CONFIG = {
   SESSIONS_DIR: '/data/.openclaw/agents/main/sessions',
   SESSIONS_META: '/data/.openclaw/agents/main/sessions/sessions.json',
   STATE_FILE: '/data/.openclaw/workspace/memory/sm-sync-state.json',
-  CONTAINER_TAG: 'nn02-andrew',
+  CONTAINER_TAG: 'your-name', // ← замени на своё имя
   BATCH_SIZE: 20,
   CHECK_INTERVAL_MS: 120000,
   MIN_NEW_MESSAGES: 5,
@@ -136,7 +136,7 @@ async function syncOnce(client, state) {
 }
 
 async function main() {
-  log('🚀 SM Auto-Sync Daemon v2.0');
+  log('🚀 SM Auto-Sync Daemon v3.0');
   let apiKey;
   try {
     const auth = JSON.parse(fs.readFileSync(CONFIG.AUTH_PATH, 'utf8'));
